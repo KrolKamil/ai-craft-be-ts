@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "paths": {
+            "@analysis/*": ["./src/analysis/*"],
+            "@articles/*": ["./src/articles/*"],
+            "@common/*": ["./src/common/*"],
+            "@contacts/*": ["./src/contacts/*"],
+            "@contacts-set/*": ["./src/contacts-set/*"],
+            "@documents/*": ["./src/documents/*"],
+            "@payments/*": ["./src/payments/*"],
+            "@plans/*": ["./src/plans/*"],
+            "@references/*": ["./src/references/*"],
+            "@workflows/*": ["./src/workflows/*"]
+        },
+        "module": "CommonJS",
+        "target": "ESNext",
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "baseUrl": "./",
+        "incremental": true,
+        "skipLibCheck": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "strictBindCallApply": false,
+        "forceConsistentCasingInFileNames": false,
+        "noFallthroughCasesInSwitch": false,
+        "moduleResolution": "node",
+        "types": ["vitest/globals", "node"]
+    }
+}
