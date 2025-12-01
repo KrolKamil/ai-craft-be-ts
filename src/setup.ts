@@ -22,8 +22,8 @@ export function setup(app: INestApplication): void {
             'http://localhost:5173', // Vite default port
             'http://localhost:5173/',
             'http://localhost:8080',
-            'http://localhost:8080/',
             'http://localhost:8081',
+            'http://localhost:8080/',
             'http://localhost:8081/',
             ...(process.env.CORS_ORIGIN ? [process.env.CORS_ORIGIN] : []),
         ],
