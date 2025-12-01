@@ -11,6 +11,7 @@ import {
     Settings,
     OpeningHours,
     DeviceConfiguration,
+    Violations,
 } from './craft.model';
 
 export class DeviceConfigurationEditor {
@@ -92,13 +93,42 @@ export class DeviceConfigurationEditor {
         this.events = [];
     }
 
+    private checkViolations(): Violations {
+        const builder = Violations.builder();
+
+        if (!this.ownership.isUnowned()) {
+            if (!this.ownership.operator) {
+                builder.withOperatorNotAssigned();
+            }
+            if (!this.ownership.provider) {
+                builder.withProviderNotAssigned();
+            }
+        }
+
+        if (!this.location) {
+            builder.withLocationMissing();
+        }
+
+        if (this.settings.showOnMap && !this.location) {
+            builder.withShowOnMapButMissingLocation();
+        }
+
+        if (this.settings.showOnMap && !this.settings.publicAccess) {
+            builder.withShowOnMapButNoPublicAccess();
+        }
+
+        return builder.build();
+    }
+
     toDeviceConfiguration(): DeviceConfiguration {
+        const violations = this.checkViolations();
         return new DeviceConfiguration(
             this.deviceId,
             this.ownership,
             this.location,
             this.settings,
             this.openingHours,
+            violations,
         );
     }
 

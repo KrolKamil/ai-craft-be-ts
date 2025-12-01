@@ -13,6 +13,7 @@ import {
     Location,
     Settings,
     Coordinates,
+    Violations,
 } from './craft.model';
 
 class OwnershipDto {
@@ -76,6 +77,13 @@ class DeviceConfigurationDto {
         reimbursement: boolean;
         showOnMap: boolean;
         publicAccess: boolean;
+    };
+    violations: {
+        operatorNotAssigned: boolean;
+        providerNotAssigned: boolean;
+        locationMissing: boolean;
+        showOnMapButMissingLocation: boolean;
+        showOnMapButNoPublicAccess: boolean;
     };
 }
 
@@ -185,6 +193,15 @@ export class DeviceConfigurationController {
                 reimbursement: device.settings.reimbursement,
                 showOnMap: device.settings.showOnMap,
                 publicAccess: device.settings.publicAccess,
+            },
+            violations: {
+                operatorNotAssigned: device.violations.operatorNotAssigned,
+                providerNotAssigned: device.violations.providerNotAssigned,
+                locationMissing: device.violations.locationMissing,
+                showOnMapButMissingLocation:
+                    device.violations.showOnMapButMissingLocation,
+                showOnMapButNoPublicAccess:
+                    device.violations.showOnMapButNoPublicAccess,
             },
         };
     }

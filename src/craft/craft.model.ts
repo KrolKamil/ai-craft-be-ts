@@ -149,6 +149,67 @@ export class Settings {
     }
 }
 
+export class Violations {
+    constructor(
+        readonly operatorNotAssigned: boolean,
+        readonly providerNotAssigned: boolean,
+        readonly locationMissing: boolean,
+        readonly showOnMapButMissingLocation: boolean,
+        readonly showOnMapButNoPublicAccess: boolean,
+    ) {}
+
+    static builder(): ViolationsBuilder {
+        return new ViolationsBuilder();
+    }
+
+    static none(): Violations {
+        return new ViolationsBuilder().build();
+    }
+}
+
+class ViolationsBuilder {
+    private operatorNotAssigned: boolean = false;
+    private providerNotAssigned: boolean = false;
+    private locationMissing: boolean = false;
+    private showOnMapButMissingLocation: boolean = false;
+    private showOnMapButNoPublicAccess: boolean = false;
+
+    withOperatorNotAssigned(value: boolean = true): ViolationsBuilder {
+        this.operatorNotAssigned = value;
+        return this;
+    }
+
+    withProviderNotAssigned(value: boolean = true): ViolationsBuilder {
+        this.providerNotAssigned = value;
+        return this;
+    }
+
+    withLocationMissing(value: boolean = true): ViolationsBuilder {
+        this.locationMissing = value;
+        return this;
+    }
+
+    withShowOnMapButMissingLocation(value: boolean = true): ViolationsBuilder {
+        this.showOnMapButMissingLocation = value;
+        return this;
+    }
+
+    withShowOnMapButNoPublicAccess(value: boolean = true): ViolationsBuilder {
+        this.showOnMapButNoPublicAccess = value;
+        return this;
+    }
+
+    build(): Violations {
+        return new Violations(
+            this.operatorNotAssigned,
+            this.providerNotAssigned,
+            this.locationMissing,
+            this.showOnMapButMissingLocation,
+            this.showOnMapButNoPublicAccess,
+        );
+    }
+}
+
 export class DeviceConfiguration {
     constructor(
         readonly deviceId: string,
@@ -156,6 +217,7 @@ export class DeviceConfiguration {
         readonly location: Location | null,
         readonly settings: Settings,
         readonly openingHours: OpeningHours,
+        readonly violations: Violations,
     ) {}
 
     static newDevice(deviceId: string): DeviceConfiguration {
@@ -165,6 +227,7 @@ export class DeviceConfiguration {
             null,
             Settings.defaultSettings(),
             OpeningHours.alwaysOpened(),
+            Violations.none(),
         );
     }
 }
